@@ -24,7 +24,7 @@ const SurveyDetails = () => {
   const [status, setStatus] = React.useState(survey.status);
 
   return (
-    <div className=" flex items-center justify-center bg-background p-6">
+    <div className=" flex items-center justify-center bg-background w-full max-w-3xl mx-auto">
       <div className="w-full max-w-6xl bg-muted/60 dark:bg-muted/70 rounded-xl border border-border shadow-sm p-8 relative">
         {/* Header Row */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-8">

@@ -82,7 +82,7 @@ function UsersPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full max-w-3xl mx-auto">
       {/* Profile Information Card */}
       <Card>
         <CardHeader>

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Trash2, Calendar } from "lucide-react";
+import { Eye, Trash2, Calendar, AlertTriangle, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const surveyData = [
@@ -21,9 +21,14 @@ const CheckServeys = () => {
   const [status, setStatus] = React.useState("All Statuses");
   const [dateFrom, setDateFrom] = React.useState("");
   const [dateTo, setDateTo] = React.useState("");
+  // const navigate = useNavigate();
+  const [surveys, setSurveys] = useState(surveyData);
+  const [deleteModal, setDeleteModal] = useState<null | { title: string }>(
+    null
+  );
 
   // Filtering logic (simple demo)
-  const filteredData = surveyData.filter((s) => {
+  const filteredData = surveys.filter((s) => {
     const matchesSearch =
       s.title.toLowerCase().includes(search.toLowerCase()) ||
       s.location.toLowerCase().includes(search.toLowerCase());
@@ -32,16 +37,39 @@ const CheckServeys = () => {
     return matchesSearch && matchesStatus;
   });
 
+  function handleDelete(survey: { title: string }) {
+    setDeleteModal(survey);
+  }
+
+  function confirmDelete() {
+    if (deleteModal) {
+      setSurveys((prev) => prev.filter((s) => s.title !== deleteModal.title));
+      setDeleteModal(null);
+    }
+  }
+
   return (
-    <div className="min-h-screen  flex flex-col items-center p-8">
+    <div className="min-h-screen flex flex-col items-center ">
       {/* Toolbar */}
       <div className="w-full max-w-5xl bg-background rounded-xl mb-8 flex flex-wrap gap-4 items-center justify-between">
-        <Input
-          placeholder="Search title or location..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-xs"
-        />
+        <div className="flex gap-4 items-center">
+          <Link to="/mydrivers">
+            <Button
+              variant="outline"
+              className="flex items-center gap-2"
+              size="lg"
+            >
+              <ArrowLeft className="h-5 w-5" /> Back
+            </Button>
+          </Link>
+
+          <Input
+            placeholder="Search title or location..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="max-w-xs"
+          />
+        </div>
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
@@ -130,6 +158,7 @@ const CheckServeys = () => {
                       variant="destructive"
                       className="flex items-center gap-1"
                       size="sm"
+                      onClick={() => handleDelete(survey)}
                     >
                       <Trash2 className="h-4 w-4" /> Delete
                     </Button>
@@ -146,6 +175,33 @@ const CheckServeys = () => {
           </tbody>
         </table>
       </div>
+      {deleteModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-background rounded-xl shadow-xl p-8 w-full max-w-md flex flex-col gap-4 border border-border">
+            <div className="flex items-center gap-3">
+              <div className="bg-destructive/10 rounded-full p-2">
+                <AlertTriangle className="text-destructive h-8 w-8" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold">Delete Survey</h2>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Are you sure you want to delete{" "}
+                  <span className="font-bold">{deleteModal.title}</span>? This
+                  action cannot be undone.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-end gap-3 mt-6">
+              <Button variant="outline" onClick={() => setDeleteModal(null)}>
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={confirmDelete}>
+                Delete
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

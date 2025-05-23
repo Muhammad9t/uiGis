@@ -25,7 +25,6 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import HomePage from "@/pages/HomePage";
 import UsersPage from "@/pages/UsersPage";
-import SettingsPage from "@/pages/MyDrivers";
 import Surveys from "@/pages/Surveys";
 import Mydrivers from "@/pages/MyDrivers";
 import {
@@ -46,6 +45,11 @@ import AddCity from "./pages/AddCity";
 import CheckServeys from "./pages/CheckServeys";
 import SurveyDetails from "./pages/SurveyDetails";
 import CheckMap from "./pages/CheckMap";
+import AddCustomer from "./pages/AddCustomer";
+import AddDriver from "./pages/AddDriver";
+import Login from "./pages/Login";
+import Signup from "./pages/SignUp";
+import Settings from "./pages/Settings";
 
 function Navbar() {
   const { toggleSidebar } = useSidebar();
@@ -120,10 +124,10 @@ function App() {
     <SidebarProvider defaultOpen>
       <div className="flex min-h-screen flex-col w-full">
         <Navbar />
-        <div className="flex flex-1">
+        <div className="flex flex-1 w-full mx-auto">
           <Sidebar>
             <SidebarHeader>
-              <h2 className="text-lg font-semibold px-2">Berkenbusch</h2>
+              <img src="/Berkenbusch.svg" alt="" />
               <hr />
               <div className="flex items-center space-x-3 px-2 py-4">
                 <Avatar>
@@ -238,7 +242,7 @@ function App() {
                     isActive={location.pathname === "/city-management"}
                   >
                     <Link to="/city-management">
-                      <UsersIcon />
+                      <MapIcon />
 
                       <span>City Management</span>
                     </Link>
@@ -253,7 +257,7 @@ function App() {
                     isActive={location.pathname === "/upload-servey"}
                   >
                     <Link to="/upload-servey">
-                      <UsersIcon />
+                      <MapIcon />
 
                       <span>Uplaod Servey</span>
                     </Link>
@@ -266,7 +270,7 @@ function App() {
                     isActive={location.pathname === "/servey-management"}
                   >
                     <Link to="/servey-management">
-                      <UsersIcon />
+                      <MapIcon />
 
                       <span>Survey Management</span>
                     </Link>
@@ -282,7 +286,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/users" element={<UsersPage />} />
-              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/surveys" element={<Surveys />} />
               <Route path="/mydrivers" element={<Mydrivers />} />
               <Route
@@ -290,7 +294,6 @@ function App() {
                 element={<SuperAdminDashboard />}
               />
               <Route path="/add-city" element={<AddCity />} />
-
               <Route
                 path="/customer-management"
                 element={<CustomerManagement />}
@@ -301,6 +304,11 @@ function App() {
               <Route path="/check-serveys" element={<CheckServeys />} />
               <Route path="/survey-details" element={<SurveyDetails />} />
               <Route path="/check-map" element={<CheckMap />} />
+              <Route path="/add-customer" element={<AddCustomer />} />
+              <Route path="/add-driver" element={<AddDriver />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/sign-up" element={<Signup />} />
+
               {/* Add a catch-all or redirect if needed */}
             </Routes>
           </main>

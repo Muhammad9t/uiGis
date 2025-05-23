@@ -1,6 +1,8 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+// import { ArrowLeft } from "lucide-react";
 
 const countries = ["Germany", "United Kingdom", "France"];
 const citiesByCountry: { [key: string]: string[] } = {
@@ -14,14 +16,15 @@ const AddCity = () => {
   const [selectedCity, setSelectedCity] = React.useState(
     citiesByCountry[countries[0]][0]
   );
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     setSelectedCity(citiesByCountry[selectedCountry][0]);
   }, [selectedCountry]);
 
   return (
-    <div className="flex justify-center items-start min-h-screen p-6">
-      <form className="bg-background rounded-xl border border-border w-full max-w-3xl p-8 space-y-6">
+    <div className="flex justify-center items-start min-h-screen w-full max-w-3xl mx-auto">
+      <form className="bg-background rounded-xl border border-border w-full p-8 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block mb-1 font-medium" htmlFor="country">
@@ -72,10 +75,12 @@ const AddCity = () => {
             <Input type="file" accept=".kml" className="max-w-xs" />
           </div>
         </div>
-        <div>
-          <Button type="submit" className="mt-4 w-40">
-            Submit
+        <hr />
+        <div className="flex justify-end gap-4">
+          <Button type="button" variant="outline" onClick={() => navigate(-1)}>
+            Cancel
           </Button>
+          <Button type="submit">Save</Button>
         </div>
       </form>
     </div>

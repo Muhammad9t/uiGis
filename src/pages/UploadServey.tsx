@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const UploadServey = () => {
   return (
-    <div className="flex justify-center items-start min-h-screen">
+    <div className="flex justify-center items-start min-h-screen w-full max-w-3xl mx-auto">
       <Card className="w-full p-8">
         <CardContent className="space-y-6 p-0">
           <div>
@@ -24,7 +24,7 @@ const UploadServey = () => {
               id="survey-description"
               placeholder="Enter description"
               rows={4}
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="w-full rounded-md border border-input px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             />
           </div>
           <div>
@@ -33,7 +33,7 @@ const UploadServey = () => {
             </label>
             <Input id="survey-location" placeholder="Enter location" />
           </div>
-          <div className="grid grid-cols-3">
+          <div className="grid grid-cols-3 gap-4">
             <div>
               <label className="block mb-1 font-medium">Survey CSV File</label>
               <Input type="file" accept=".csv" className="max-w-xs" />
